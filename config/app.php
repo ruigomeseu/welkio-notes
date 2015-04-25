@@ -139,11 +139,15 @@ return [
 		/*
 		 * Application Service Providers...
 		 */
-		'App\Providers\AppServiceProvider',
-		'App\Providers\BusServiceProvider',
-		'App\Providers\ConfigServiceProvider',
-		'App\Providers\EventServiceProvider',
-		'App\Providers\RouteServiceProvider',
+		'Notes\Providers\AppServiceProvider',
+		'Notes\Providers\BusServiceProvider',
+		'Notes\Providers\ConfigServiceProvider',
+		'Notes\Providers\EventServiceProvider',
+		'Notes\Providers\RouteServiceProvider',
+
+        //Custom Providers
+
+        'Notes\Github\GithubServiceProvider'
 
 	],
 

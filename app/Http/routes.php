@@ -1,21 +1,16 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+Route::get('/login', ['as' => 'login', 'uses' => 'UsersController@index']);
+Route::post('/login', ['as' => 'login', 'uses' => 'UsersController@login']);
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/logout', function()
+{
+   \Auth::logout();
+});
 
-Route::get('home', 'HomeController@index');
+Route::get('/notes', ['as' => 'notes', 'uses' => 'NotesController@index']);
 
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+Route::group(array('middleware' => 'auth'), function () {
+    Route::get('/', ['as' => 'index', 'uses' => 'UsersController@repositories']);
+    Route::get('/repositories/{owner}/{repository}/issues', ['as' => 'repository.issues', 'uses' => 'UsersController@issues']);
+});
