@@ -47,7 +47,7 @@ class Github implements GithubInterface {
 
     public function getIssues($owner, $repository)
     {
-        $request = $this->guzzle-> createRequest('GET', "/repos/{$owner}/{$repository}/issues");
+        $request = $this->guzzle->createRequest('GET', "/repos/{$owner}/{$repository}/issues");
 
         $this->getUserToken();
 
