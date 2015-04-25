@@ -17,26 +17,26 @@ class LoginUser extends Command implements SelfHandling {
      * Create a new command instance.
      *
      * @param $token
-     * @param GithubInterface $github
      */
-	public function __construct($token, GithubInterface $github)
+	public function __construct($token)
 	{
 		$this->token = $token;
-        $this->github = $github;
 	}
 
-	/**
-	 * Execute the command.
-	 *
-	 * @return void
-	 */
-	public function handle()
+    /**
+     * Execute the command.
+     *
+     * @param GithubInterface $github
+     */
+	public function handle(GithubInterface $github)
 	{
+        $this->github = $github;
+
         try {
             $user = User::whereToken($this->token)->firstOrFail();
         } catch(ModelNotFoundException $exception)
         {
-            $user = $this->signUp();
+            $user = $this->signUp($github);
         }
 
         Auth::loginUsingId($user->id);
