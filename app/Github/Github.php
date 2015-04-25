@@ -3,7 +3,8 @@
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 
-class Github implements GithubInterface {
+class Github implements GithubInterface
+{
 
     protected $apiUrl;
     protected $token;
@@ -21,11 +22,11 @@ class Github implements GithubInterface {
 
     public function getUser()
     {
-        $request = $this->guzzle-> createRequest('GET', '/user');
+        $request = $this->guzzle->createRequest('GET', '/user');
 
         $this->getUserToken();
 
-        $request->setHeader('Authorization' , 'token ' . $this->token);
+        $request->setHeader('Authorization', 'token ' . $this->token);
 
         $result = $this->guzzle->send($request);
 
@@ -34,11 +35,11 @@ class Github implements GithubInterface {
 
     public function getRepositories()
     {
-        $request = $this->guzzle-> createRequest('GET', '/user/repos');
+        $request = $this->guzzle->createRequest('GET', '/user/repos');
 
         $this->getUserToken();
 
-        $request->setHeader('Authorization' , 'token ' . $this->token);
+        $request->setHeader('Authorization', 'token ' . $this->token);
 
         $result = $this->guzzle->send($request);
 
@@ -51,7 +52,7 @@ class Github implements GithubInterface {
 
         $this->getUserToken();
 
-        $request->setHeader('Authorization' , 'token ' . $this->token);
+        $request->setHeader('Authorization', 'token ' . $this->token);
 
         $result = $this->guzzle->send($request);
 
@@ -60,10 +61,8 @@ class Github implements GithubInterface {
 
     protected function getUserToken()
     {
-        if($this->token == null)
-        {
-            if(Auth::user())
-            {
+        if ($this->token == null) {
+            if (Auth::user()) {
                 $this->token = Auth::user()->token;
             }
         }
